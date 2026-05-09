@@ -1,0 +1,21 @@
+<mat-toolbar class="header-toolbar">
+  <div class="brand-block">
+    <span class="brand-title">UDV Inventario</span>
+    <span class="brand-subtitle">Gestion comercial</span>
+  </div>
+
+  <nav class="nav-menu" aria-label="Menu principal">
+    <a
+      *ngFor="let item of menuItems"
+      mat-button
+      [routerLink]="item.route"
+      routerLinkActive="active-link">
+      {{ item.label }}
+    </a>
+  </nav>
+
+  <div class="user-section" *ngIf="isLoggedIn">
+    <span class="user-name">{{ userName }}</span>
+    <button mat-stroked-button type="button" (click)="logout()">Cerrar sesion</button>
+  </div>
+</mat-toolbar>

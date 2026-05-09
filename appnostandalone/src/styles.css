@@ -1,0 +1,172 @@
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+
+:root {
+  --bg-main: #f7fafc;
+  --bg-subtle: #eaf5f8;
+  --surface: #ffffff;
+  --surface-muted: #f1f7f9;
+  --border: #d6e3e8;
+  --text-main: #172033;
+  --text-soft: #667085;
+  --primary: #087083;
+  --primary-dark: #075260;
+  --primary-soft: #dff3f7;
+  --accent: #e0a21b;
+  --accent-soft: #fff4d6;
+  --success: #21865f;
+  --success-soft: #ddf8ea;
+  --danger: #c23127;
+  --danger-soft: #ffe8e5;
+  --violet: #6650a4;
+  --violet-soft: #ece7ff;
+  --shadow-main: 0 18px 44px rgba(21, 35, 52, 0.13);
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(8, 112, 131, 0.18), transparent 28%),
+    radial-gradient(circle at 86% 16%, rgba(224, 162, 27, 0.18), transparent 26%),
+    linear-gradient(180deg, #fbfdff 0%, var(--bg-main) 42%, #edf7f9 100%);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.mat-mdc-card,
+mat-card {
+  background: var(--surface) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-main) !important;
+  border-radius: 8px !important;
+}
+
+.mat-toolbar.header-toolbar {
+  --mat-toolbar-container-background-color: var(--surface);
+  --mat-toolbar-container-text-color: var(--text-main);
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-mdc-form-field .mdc-notched-outline__leading,
+.mat-mdc-form-field .mdc-notched-outline__notch,
+.mat-mdc-form-field .mdc-notched-outline__trailing {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  border-color: #c7d3df !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: var(--primary) !important;
+}
+
+.mat-mdc-form-field .mdc-floating-label,
+.mat-mdc-form-field .mat-mdc-input-element,
+.mat-mdc-form-field textarea.mat-mdc-input-element,
+.mat-mdc-form-field .mat-mdc-select-value,
+.mat-mdc-form-field .mat-mdc-select-arrow,
+.mat-mdc-form-field .mat-mdc-form-field-hint,
+.mat-mdc-form-field .mat-mdc-form-field-icon-suffix {
+  color: var(--text-main) !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper,
+.mat-mdc-form-field-error {
+  color: #ffb6b6 !important;
+}
+
+.mat-mdc-checkbox label,
+.mat-mdc-checkbox .mdc-form-field {
+  color: var(--text-soft);
+}
+
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-unelevated-button.mat-primary,
+.mat-mdc-fab.mat-primary,
+.mat-mdc-mini-fab.mat-primary {
+  --mdc-filled-button-container-color: var(--primary) !important;
+  --mdc-filled-button-label-text-color: #ffffff;
+}
+
+.mat-mdc-unelevated-button.mat-primary,
+.mat-mdc-raised-button.mat-primary {
+  box-shadow: 0 10px 22px rgba(8, 112, 131, 0.22);
+}
+
+.mat-mdc-outlined-button,
+.mat-mdc-stroked-button {
+  border-color: #b9c7d5 !important;
+  color: var(--text-main) !important;
+}
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: var(--primary);
+}
+
+.page-shell {
+  display: grid;
+  gap: 18px;
+}
+
+.page-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.page-title h1,
+.page-title h2 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: clamp(1.45rem, 2vw, 2rem);
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  color: var(--text-soft);
+}
+
+.state-message {
+  border-radius: 8px;
+  padding: 12px 14px;
+  border: 1px solid transparent;
+}
+
+.state-message.error {
+  background: var(--danger-soft);
+  border-color: #ffc9c4;
+  color: var(--danger);
+}
+
+.state-message.success {
+  background: var(--success-soft);
+  border-color: #bfe8d2;
+  color: var(--success);
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

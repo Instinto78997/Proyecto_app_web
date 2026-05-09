@@ -1,0 +1,180 @@
+.compras-container {
+  min-height: calc(100vh - 170px);
+}
+
+.total-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-size: 1.2rem;
+}
+
+.filtros-card,
+.compras-card {
+  padding: 20px;
+  border-top: 5px solid var(--primary);
+}
+
+.compras-card {
+  border-top-color: var(--violet);
+}
+
+.filtros-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.filtros-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.compras-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.compras-table th,
+.compras-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-main);
+}
+
+.compras-table th {
+  background: linear-gradient(90deg, var(--violet-soft), #ffffff);
+  color: var(--primary-dark);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+}
+
+.estado-badge,
+.metodo-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eef2f6;
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.estado-pagado {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.estado-pendiente {
+  background: var(--accent-soft);
+  color: #b45309;
+}
+
+.estado-cancelado {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.acciones {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.danger {
+  color: var(--danger) !important;
+  border-color: #f5b5ae !important;
+}
+
+.loading,
+.empty-state {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  padding: 40px;
+  color: var(--text-soft);
+  text-align: center;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 32, 51, 0.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 18px;
+}
+
+.modal-content {
+  width: min(760px, 100%);
+  max-height: 86vh;
+  overflow: auto;
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.info-compra {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 14px;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.info-compra p {
+  margin: 0;
+}
+
+.detalle-table {
+  min-width: 560px;
+}
+
+@media (max-width: 1100px) {
+  .filtros-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .filtros-grid,
+  .info-compra {
+    grid-template-columns: 1fr;
+  }
+
+  .acciones {
+    flex-direction: column;
+  }
+}

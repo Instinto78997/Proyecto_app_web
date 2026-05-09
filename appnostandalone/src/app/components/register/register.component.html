@@ -1,0 +1,79 @@
+<div class="register-page">
+  <mat-card class="register-card">
+    <div class="register-header">
+      <p class="eyebrow">Formulario simple</p>
+      <h1>Crear cuenta</h1>
+      <p class="subtitle">Llena tus datos para usar el sistema.</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre de usuario</mat-label>
+        <input matInput formControlName="username" placeholder="Ejemplo: juanperez">
+        <mat-error *ngIf="usernameControl?.invalid && usernameControl?.touched">
+          El usuario es obligatorio y debe tener al menos 3 caracteres.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Correo</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="usuario@ejemplo.com">
+        <mat-error *ngIf="emailControl?.invalid && emailControl?.touched">
+          Ingresa un correo valido.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contrasena</mat-label>
+        <input
+          matInput
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="Minimo 6 caracteres">
+        <button mat-button matSuffix type="button" (click)="togglePasswordVisibility()">
+          {{ showPassword ? 'Ocultar' : 'Mostrar' }}
+        </button>
+        <mat-error *ngIf="passwordControl?.invalid && passwordControl?.touched">
+          La contrasena debe tener al menos 6 caracteres.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" placeholder="Opcional">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Telefono</mat-label>
+        <input matInput formControlName="telephone" placeholder="Solo numeros">
+        <mat-error *ngIf="telephoneControl?.invalid && telephoneControl?.touched">
+          Solo se permiten numeros.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Bio</mat-label>
+        <textarea matInput rows="3" formControlName="bio" placeholder="Algo breve sobre ti"></textarea>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" class="submit-button" type="submit" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Registrarme</span>
+        <mat-progress-spinner
+          *ngIf="isLoading"
+          diameter="22"
+          mode="indeterminate">
+        </mat-progress-spinner>
+      </button>
+
+      <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
+      <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+
+    <mat-divider></mat-divider>
+
+    <p class="register-footer">
+      Ya tienes cuenta?
+      <a (click)="goToLogin()">Volver al login</a>
+    </p>
+  </mat-card>
+</div>

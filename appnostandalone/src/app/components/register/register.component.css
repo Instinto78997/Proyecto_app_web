@@ -1,0 +1,105 @@
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 78% 16%, rgba(224, 162, 27, 0.22), transparent 28%),
+    radial-gradient(circle at 18% 82%, rgba(8, 112, 131, 0.18), transparent 28%),
+    linear-gradient(135deg, rgba(102, 80, 164, 0.12), transparent 34%),
+    linear-gradient(180deg, #f8fbff 0%, #edf4f8 100%);
+}
+
+.register-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 28px;
+  border-radius: 8px;
+  border-top: 5px solid var(--accent);
+}
+
+.register-header {
+  margin-bottom: 16px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.register-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: var(--text-main);
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: var(--text-soft);
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0 16px;
+}
+
+.register-form mat-form-field {
+  width: 100%;
+}
+
+.submit-button {
+  min-height: 46px;
+  border-radius: 12px;
+}
+
+.submit-button mat-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: #ffffff;
+}
+
+.success-message,
+.error-message {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.92rem;
+}
+
+.success-message {
+  background: #ecfdf3;
+  color: var(--success);
+}
+
+.error-message {
+  background: #fff1f0;
+  color: var(--danger);
+}
+
+.register-footer {
+  margin: 16px 0 0;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.register-footer a {
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.register-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .register-card {
+    padding: 22px;
+  }
+}

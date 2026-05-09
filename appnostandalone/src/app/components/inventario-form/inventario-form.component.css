@@ -1,0 +1,57 @@
+.form-container {
+  min-height: calc(100vh - 170px);
+}
+
+.form-card {
+  max-width: 840px;
+  padding: 24px;
+  border-top: 5px solid var(--primary);
+  background:
+    linear-gradient(135deg, #ffffff 0%, #ffffff 68%, var(--primary-soft) 100%) !important;
+}
+
+.product-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  min-height: 260px;
+  color: var(--text-soft);
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.form-buttons button {
+  min-width: 130px;
+}
+
+@media (max-width: 680px) {
+  .product-form {
+    grid-template-columns: 1fr;
+  }
+
+  .span-2 {
+    grid-column: auto;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
+
+  .form-buttons button {
+    width: 100%;
+  }
+}

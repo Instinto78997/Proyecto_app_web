@@ -1,0 +1,75 @@
+<section class="inventario-page">
+  <div class="inventario-header page-title">
+    <div>
+      <p class="eyebrow">Control de stock</p>
+      <h2>Inventario de alimentos</h2>
+      <p class="subtitle">Consulta productos, disponibilidad y precios para venta.</p>
+    </div>
+
+    <button mat-flat-button color="primary" type="button" (click)="agregar()">
+      Agregar alimento
+    </button>
+  </div>
+
+  <mat-card class="inventario-card">
+    <div class="card-title-row">
+      <h3>Lista actual</h3>
+      <mat-chip>{{ alimentos.length }} registros</mat-chip>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div *ngIf="isLoading" class="loading-state">
+      <mat-progress-spinner diameter="42" mode="indeterminate"></mat-progress-spinner>
+      <p>Cargando inventario...</p>
+    </div>
+
+    <p *ngIf="errorMessage" class="state-message error">{{ errorMessage }}</p>
+
+    <div *ngIf="!isLoading && alimentos.length === 0" class="empty-state">
+      <p>No hay alimentos registrados.</p>
+      <button mat-stroked-button color="primary" type="button" (click)="agregar()">
+        Agregar el primero
+      </button>
+    </div>
+
+    <div class="table-wrapper" *ngIf="!isLoading && alimentos.length > 0">
+      <table class="inventario-table mat-elevation-z0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Categoria</th>
+            <th>Cantidad</th>
+            <th>Unidad</th>
+            <th>Stock</th>
+            <th>Precio venta</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of alimentos">
+            <td>{{ item.id }}</td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.categoria?.nombre || item.categoria_id }}</td>
+            <td>{{ item.peso }}</td>
+            <td>{{ item.unidad_medida?.codigo || item.unidad_medida_id }}</td>
+            <td>
+              <span class="stock-badge" [class.low-stock]="item.stock < 10">
+                {{ item.stock }} unidades
+              </span>
+            </td>
+            <td>Q{{ item.precio_venta | number:'1.2-2' }}</td>
+            <td class="acciones">
+              <button mat-stroked-button type="button" (click)="ver(item.id)">Ver</button>
+              <button mat-flat-button color="primary" type="button" (click)="editar(item.id)">Editar</button>
+              <button mat-stroked-button type="button" class="delete-button" (click)="eliminar(item.id)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card>
+</section>

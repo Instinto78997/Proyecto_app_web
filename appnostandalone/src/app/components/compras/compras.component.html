@@ -1,0 +1,124 @@
+<section class="compras-container page-shell">
+  <div class="page-title">
+    <div>
+      <p class="eyebrow">Historial comercial</p>
+      <h1>Historial de compras</h1>
+      <p class="subtitle">Consulta ventas registradas, estados de pago y detalle por producto.</p>
+    </div>
+    <strong class="total-pill">Q{{ totalVentas | number:'1.2-2' }}</strong>
+  </div>
+
+  <mat-card class="filtros-card">
+    <div class="filtros-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Estado de pago</mat-label>
+        <mat-select [(ngModel)]="filtroEstado" (selectionChange)="aplicarFiltros()">
+          <mat-option value="">Todos</mat-option>
+          <mat-option value="PENDIENTE">Pendiente</mat-option>
+          <mat-option value="PAGADO">Pagado</mat-option>
+          <mat-option value="CANCELADO">Cancelado</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Metodo de pago</mat-label>
+        <mat-select [(ngModel)]="filtroMetodoPago" (selectionChange)="aplicarFiltros()">
+          <mat-option value="">Todos</mat-option>
+          <mat-option *ngFor="let m of metodosPago" [value]="m.nombre">{{ m.nombre }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha inicio</mat-label>
+        <input matInput type="date" [(ngModel)]="fechaInicio" (change)="aplicarFiltros()">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha fin</mat-label>
+        <input matInput type="date" [(ngModel)]="fechaFin" (change)="aplicarFiltros()">
+      </mat-form-field>
+    </div>
+
+    <div class="filtros-actions">
+      <button mat-stroked-button type="button" (click)="limpiarFiltros()">Limpiar filtros</button>
+      <mat-chip>{{ filteredVentas.length }} compras encontradas</mat-chip>
+    </div>
+  </mat-card>
+
+  <mat-card class="compras-card">
+    <div *ngIf="isLoading" class="loading">
+      <mat-progress-spinner diameter="42" mode="indeterminate"></mat-progress-spinner>
+      <p>Cargando historial...</p>
+    </div>
+
+    <p *ngIf="errorMessage" class="state-message error">{{ errorMessage }}</p>
+
+    <div *ngIf="!isLoading && filteredVentas.length === 0" class="empty-state">
+      <p>No hay compras registradas</p>
+    </div>
+
+    <div class="table-wrapper" *ngIf="!isLoading && filteredVentas.length > 0">
+      <table class="compras-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Metodo</th>
+            <th>Total</th>
+            <th>Estado pago</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let venta of filteredVentas">
+            <td>{{ venta.id_venta }}</td>
+            <td>{{ venta.cliente_nombre || venta.nit }}</td>
+            <td>{{ venta.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td><span class="metodo-badge">{{ venta.metodo_pago }}</span></td>
+            <td>Q{{ venta.total | number:'1.2-2' }}</td>
+            <td><span class="estado-badge" [class]="getEstadoClass(venta.estado_pago)">{{ venta.estado_pago }}</span></td>
+            <td class="acciones">
+              <button mat-stroked-button type="button" (click)="verDetalle(venta)">Ver</button>
+              <button *ngIf="venta.estado_pago === 'PENDIENTE'" mat-stroked-button type="button" (click)="cambiarEstado(venta, 'PAGADO')">Pagar</button>
+              <button *ngIf="venta.estado_pago !== 'CANCELADO'" mat-stroked-button type="button" (click)="cambiarEstado(venta, 'CANCELADO')">Cancelar</button>
+              <button mat-stroked-button type="button" class="danger" (click)="anularVenta(venta)">Anular</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card>
+</section>
+
+<div class="modal" *ngIf="showModal" (click)="cerrarModal()">
+  <mat-card class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Detalle de compra #{{ ventaSeleccionada?.id_venta }}</h3>
+      <button mat-stroked-button type="button" (click)="cerrarModal()">Cerrar</button>
+    </div>
+
+    <div class="info-compra">
+      <p><strong>Cliente:</strong> {{ ventaSeleccionada?.cliente_nombre || ventaSeleccionada?.nit }}</p>
+      <p><strong>Fecha:</strong> {{ ventaSeleccionada?.fecha | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Metodo de pago:</strong> {{ ventaSeleccionada?.metodo_pago }}</p>
+      <p><strong>Estado:</strong> <span class="estado-badge" [class]="getEstadoClass(ventaSeleccionada?.estado_pago || '')">{{ ventaSeleccionada?.estado_pago }}</span></p>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="compras-table detalle-table">
+        <thead>
+          <tr><th>Alimento</th><th>Cantidad</th><th>Precio unit.</th><th>Subtotal</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of detallesVenta">
+            <td>{{ d.nombre }}</td>
+            <td>{{ d.cantidad }}</td>
+            <td>Q{{ d.precio_unitario | number:'1.2-2' }}</td>
+            <td>Q{{ d.subtotal | number:'1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card>
+</div>

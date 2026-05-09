@@ -1,0 +1,63 @@
+<div class="login-page">
+  <mat-card class="login-card">
+    <div class="login-header">
+      <p class="eyebrow">Proyecto de inventario</p>
+      <h1>Iniciar sesion</h1>
+      <p class="subtitle">Ingresa con tu usuario para continuar.</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Usuario</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="username"
+          placeholder="Ejemplo: henry123">
+        <mat-error *ngIf="usernameControl?.invalid && usernameControl?.touched">
+          El usuario es obligatorio.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contrasena</mat-label>
+        <input
+          matInput
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          placeholder="Minimo 6 caracteres">
+        <button mat-button matSuffix type="button" (click)="togglePasswordVisibility()">
+          {{ showPassword ? 'Ocultar' : 'Mostrar' }}
+        </button>
+        <mat-error *ngIf="passwordControl?.invalid && passwordControl?.touched">
+          La contrasena debe tener al menos 6 caracteres.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="login-options">
+        <mat-checkbox [(ngModel)]="rememberMe" [ngModelOptions]="{ standalone: true }">
+          Recordarme
+        </mat-checkbox>
+        <span class="hint">Uso academico</span>
+      </div>
+
+      <button mat-flat-button color="primary" class="submit-button" type="submit" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Entrar</span>
+        <mat-progress-spinner
+          *ngIf="isLoading"
+          diameter="22"
+          mode="indeterminate">
+        </mat-progress-spinner>
+      </button>
+
+      <p class="form-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+
+    <mat-divider></mat-divider>
+
+    <p class="login-footer">
+      No tienes cuenta?
+      <a routerLink="/register">Registrate aqui</a>
+    </p>
+  </mat-card>
+</div>

@@ -1,0 +1,97 @@
+<section class="perfil-container page-shell">
+  <div class="page-title">
+    <div>
+      <p class="eyebrow">Cuenta de usuario</p>
+      <h1>Mi perfil</h1>
+      <p class="subtitle">{{ user?.username }} · {{ user?.email }}</p>
+    </div>
+
+    <button *ngIf="!isEditing" mat-flat-button color="primary" type="button" (click)="toggleEdit()">
+      Editar perfil
+    </button>
+  </div>
+
+  <mat-card class="perfil-card">
+    <div class="avatar-section">
+      <div class="avatar-preview" *ngIf="avatarPreview">
+        <img [src]="avatarPreview" alt="Foto de perfil">
+      </div>
+      <div class="avatar-placeholder" *ngIf="!avatarPreview">
+        <span>{{ (user?.nombre || user?.username || 'U').slice(0, 1) }}</span>
+      </div>
+
+      <div class="avatar-actions">
+        <button *ngIf="isEditing" mat-stroked-button type="button" (click)="fileInput.click()">
+          Subir foto
+        </button>
+        <span *ngIf="selectedImageName" class="file-name">{{ selectedImageName }}</span>
+      </div>
+
+      <input
+        type="file"
+        #fileInput
+        (change)="onAvatarChange($event)"
+        accept="image/*"
+        hidden>
+    </div>
+
+    <form [formGroup]="perfilForm" (ngSubmit)="onSubmit()" class="perfil-form">
+      <div class="form-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre completo</mat-label>
+          <input matInput type="text" formControlName="nombre" [readonly]="!isEditing">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Telefono</mat-label>
+          <input matInput type="tel" formControlName="phone" [readonly]="!isEditing">
+          <mat-error *ngIf="perfilForm.get('phone')?.invalid">Solo numeros.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nombres</mat-label>
+          <input matInput type="text" formControlName="firstName" [readonly]="!isEditing">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Apellidos</mat-label>
+          <input matInput type="text" formControlName="lastName" [readonly]="!isEditing">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-2">
+          <mat-label>Direccion</mat-label>
+          <input matInput type="text" formControlName="address" [readonly]="!isEditing">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de nacimiento</mat-label>
+          <input matInput type="date" formControlName="birthDate" [readonly]="!isEditing">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Genero</mat-label>
+          <mat-select formControlName="gender" [disabled]="!isEditing">
+            <mat-option value="">Sin especificar</mat-option>
+            <mat-option *ngFor="let g of generos" [value]="g">{{ g }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="span-2">
+          <mat-label>Biografia</mat-label>
+          <textarea matInput formControlName="bio" rows="4" [readonly]="!isEditing"></textarea>
+        </mat-form-field>
+      </div>
+
+      <p class="state-message success" *ngIf="successMessage">{{ successMessage }}</p>
+      <p class="state-message error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <div class="form-buttons" *ngIf="isEditing">
+        <button mat-flat-button color="primary" type="submit" [disabled]="isLoading">
+          <span *ngIf="!isLoading">Guardar cambios</span>
+          <mat-progress-spinner *ngIf="isLoading" diameter="22" mode="indeterminate"></mat-progress-spinner>
+        </button>
+        <button mat-stroked-button type="button" (click)="toggleEdit()">Cancelar</button>
+      </div>
+    </form>
+  </mat-card>
+</section>

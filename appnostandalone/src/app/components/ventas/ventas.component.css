@@ -1,0 +1,106 @@
+.ventas-container {
+  min-height: calc(100vh - 170px);
+}
+
+.total-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--success-soft);
+  color: var(--success);
+  font-size: 1.2rem;
+}
+
+.ventas-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.panel-info,
+.panel-detalle {
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+  border-top: 5px solid var(--accent);
+}
+
+.panel-detalle {
+  border-top-color: var(--success);
+}
+
+h3 {
+  margin: 0;
+  color: var(--text-main);
+}
+
+.add-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 120px auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.detalle-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.detalle-table th,
+.detalle-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.detalle-table th {
+  background: linear-gradient(90deg, var(--accent-soft), #ffffff);
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  font-size: 0.82rem;
+}
+
+.empty-row {
+  color: var(--text-soft);
+  text-align: center !important;
+  padding: 28px !important;
+}
+
+.btn-realizar-venta {
+  justify-self: end;
+  min-width: 170px;
+}
+
+.btn-realizar-venta mat-progress-spinner {
+  display: inline-block;
+  --mdc-circular-progress-active-indicator-color: #ffffff;
+}
+
+@media (max-width: 1050px) {
+  .ventas-grid,
+  .add-row {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-realizar-venta {
+    width: 100%;
+  }
+}

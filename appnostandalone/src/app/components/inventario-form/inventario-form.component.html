@@ -1,0 +1,71 @@
+<section class="form-container page-shell">
+  <div class="page-title">
+    <div>
+      <p class="eyebrow">Catalogo de productos</p>
+      <h1>{{ pageTitle }}</h1>
+      <p class="subtitle">Mantiene cantidades, precios y unidades listas para ventas.</p>
+    </div>
+  </div>
+
+  <mat-card class="form-card">
+    <div *ngIf="isLoading" class="loading">
+      <mat-progress-spinner diameter="42" mode="indeterminate"></mat-progress-spinner>
+      <p>Cargando...</p>
+    </div>
+
+    <p *ngIf="errorMessage" class="state-message error">{{ errorMessage }}</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!isLoading" class="product-form">
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Nombre del alimento</mat-label>
+        <input matInput type="text" formControlName="nombre" placeholder="Ej. Arroz, frijol, aceite">
+        <mat-error *ngIf="form.get('nombre')?.invalid">Nombre requerido, minimo 3 caracteres.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Categoria</mat-label>
+        <mat-select formControlName="categoria_id">
+          <mat-option value="">Seleccionar categoria</mat-option>
+          <mat-option *ngFor="let cat of categorias" [value]="cat.id">{{ cat.nombre }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('categoria_id')?.invalid">Categoria requerida.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Unidad de medida</mat-label>
+        <mat-select formControlName="unidad_medida_id">
+          <mat-option value="">Seleccionar unidad</mat-option>
+          <mat-option *ngFor="let u of unidadesMedida" [value]="u.id">
+            {{ u.codigo }}{{ u.nombre ? ' - ' + u.nombre : '' }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('unidad_medida_id')?.invalid">Unidad requerida.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cantidad</mat-label>
+        <input matInput type="number" step="0.01" formControlName="peso">
+        <mat-error *ngIf="form.get('peso')?.invalid">Cantidad mayor a 0 requerida.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Stock</mat-label>
+        <input matInput type="number" step="1" formControlName="stock">
+        <mat-error *ngIf="form.get('stock')?.invalid">Stock minimo 0 requerido.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>Precio de venta (Q)</mat-label>
+        <input matInput type="number" step="0.01" formControlName="precio_venta">
+        <mat-error *ngIf="form.get('precio_venta')?.invalid">Precio mayor a 0 requerido.</mat-error>
+      </mat-form-field>
+
+      <div class="form-buttons span-2">
+        <button *ngIf="!isView" mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+          Guardar
+        </button>
+        <button mat-stroked-button type="button" (click)="cancelar()">Volver</button>
+      </div>
+    </form>
+  </mat-card>
+</section>

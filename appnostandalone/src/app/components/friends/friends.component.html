@@ -1,0 +1,68 @@
+<div class="cambios-container">
+
+    <mat-card class="header-card">
+        <mat-card-title>
+            <h1>Visualizador de Cambios en Tiempo Real</h1>
+        </mat-card-title>
+        <mat-card-subtitle>
+            Eventos UPDATE desde PostgreSQL via Socket.IO
+        </mat-card-subtitle>
+    </mat-card>
+
+    <mat-card class="info-card">
+        <mat-card-content>
+            <h3>Como usar: </h3>
+            <p *ngIf="socketError">Error: {{ socketError }}</p>
+            <p>ejecutar este comando en PostgreSQL</p>
+            <code>UPDATE my_friends SET name = 'Henry' WHERE id = 1;</code>
+        </mat-card-content>
+    </mat-card>
+
+    <div class="actions">
+        <button mat-raised-button color="warn" (click)="limpiarCambios()">
+            <mat-icon>delete_sweep</mat-icon>
+            Limpiar Cambios
+        </button>
+    </div>
+
+    <mat-card class="table-card">
+        <mat-card-header>
+            <mat-card-title>
+                <mat-icon>history</mat-icon>
+                Ultimos cambios detectados
+            </mat-card-title>
+            <mat-card-subtitle>
+                Solo muestra los UPDATE
+            </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div *ngIf="cambios.length === 0" class="no-data">
+                <mat-icon>info</mat-icon>
+                <p>No hay cambios detectados</p>
+                <p>Ejecutqa un UPDATE en PostgreSQL</p>
+            </div>
+
+            <div *ngIf="cambios.length > 0" class="tabla-wrapper">
+                <table class="cambios-tabla">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre anterior</th>
+                            <th>Nombre nuevo</th>
+                            <th>Genero</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cambio of cambios">
+                            <td>{{ cambio.id }}</td>
+                            <td class="old-value">{{ cambio.nombreAnterior }}</td>
+                            <td class="new-value">{{ cambio.nombreNuevo }}</td>
+                            <td class="gender">{{ cambio.genero }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

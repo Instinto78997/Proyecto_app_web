@@ -1,0 +1,91 @@
+<section class="ventas-container page-shell">
+  <div class="page-title">
+    <div>
+      <p class="eyebrow">Punto de venta</p>
+      <h1>Ventas</h1>
+      <p class="subtitle">Registra ventas, valida stock y calcula totales automaticamente.</p>
+    </div>
+    <strong class="total-pill">Q{{ total | number:'1.2-2' }}</strong>
+  </div>
+
+  <div class="ventas-grid">
+    <mat-card class="panel-info">
+      <h3>Informacion de venta</h3>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cliente</mat-label>
+        <mat-select [(ngModel)]="selectedCliente">
+          <mat-option *ngFor="let c of clientes" [value]="c.nit">{{ c.nit }} - {{ c.nombre }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-stroked-button type="button" (click)="nuevoCliente()">Nuevo cliente</button>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Metodo de pago</mat-label>
+        <mat-select [(ngModel)]="selectedMetodoPago">
+          <mat-option *ngFor="let m of metodosPago" [value]="m.id_metodo_pago">{{ m.nombre }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="add-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Alimento</mat-label>
+          <mat-select [(ngModel)]="alimentoSeleccionado">
+            <mat-option [value]="0">Seleccionar alimento</mat-option>
+            <mat-option *ngFor="let a of alimentos" [value]="a.id">
+              {{ a.nombre }} - Q{{ a.precio_venta | number:'1.2-2' }} (Stock: {{ a.stock }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="cantidad-field">
+          <mat-label>Cantidad</mat-label>
+          <input matInput type="number" [(ngModel)]="cantidad" min="1">
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="button" (click)="agregarAlimento()">Agregar</button>
+      </div>
+    </mat-card>
+
+    <mat-card class="panel-detalle">
+      <div class="card-title-row">
+        <h3>Detalle de venta</h3>
+        <mat-chip>{{ detalles.length }} lineas</mat-chip>
+      </div>
+
+      <p class="state-message error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <div class="table-wrapper">
+        <table class="detalle-table">
+          <thead>
+            <tr>
+              <th>Alimento</th>
+              <th>Cantidad</th>
+              <th>Precio unit.</th>
+              <th>Subtotal</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let d of detalles; let i = index">
+              <td>{{ d.nombre }}</td>
+              <td>{{ d.cantidad }}</td>
+              <td>Q{{ d.precio_unitario | number:'1.2-2' }}</td>
+              <td>Q{{ d.subtotal | number:'1.2-2' }}</td>
+              <td><button mat-stroked-button type="button" (click)="eliminarDetalle(i)">Quitar</button></td>
+            </tr>
+            <tr *ngIf="detalles.length === 0">
+              <td colspan="5" class="empty-row">No hay alimentos agregados</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <button mat-flat-button color="primary" class="btn-realizar-venta" type="button" (click)="realizarVenta()" [disabled]="isLoading || detalles.length === 0">
+        <span *ngIf="!isLoading">Realizar venta</span>
+        <mat-progress-spinner *ngIf="isLoading" diameter="22" mode="indeterminate"></mat-progress-spinner>
+      </button>
+    </mat-card>
+  </div>
+</section>
